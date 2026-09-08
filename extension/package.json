@@ -1,0 +1,49 @@
+{
+  "name": "snapcode",
+  "displayName": "SnapCode",
+  "description": "Turn code screenshots into editable code inside VS Code.",
+  "version": "0.1.0",
+  "publisher": "snapcode",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:snapcode.open",
+    "onView:snapcode.sidebar"
+  ],
+  "main": "./src/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "snapcode.open",
+        "title": "SnapCode: Open"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "snapcode",
+          "title": "SnapCode",
+          "icon": "./resources/snapcode.svg"
+        }
+      ]
+    },
+    "views": {
+      "snapcode": [
+        {
+          "id": "snapcode.sidebar",
+          "name": "SnapCode",
+          "type": "webview",
+          "visibility": "visible"
+        }
+      ]
+    }
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^3.9.2"
+  }
+}
