@@ -52,11 +52,10 @@ export async function extractCodeFromImage(imageBuffer, mimeType) {
     });
   } catch (error) {
     console.error('Groq request failed:', JSON.stringify({
-      status: error.status ?? 'unknown',
-      type: error.constructor?.name ?? 'unknown',
-      code: error.code ?? 'unknown',
-      message: error.message ?? 'Unknown Groq error',
-      response: error.error ?? error.response?.data ?? undefined
+      model: MODEL,
+      status: error.status ?? error.response?.status ?? 'unknown',
+      type: error.error?.type ?? error.type ?? error.constructor?.name ?? 'unknown',
+      message: error.error?.message ?? error.message ?? 'Unknown Groq error'
     }));
 
     if ([401, 403].includes(error.status)) {

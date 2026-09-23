@@ -16,6 +16,9 @@
     "onView:snapcode.sidebar"
   ],
   "main": "./src/extension.js",
+  "scripts": {
+    "package": "vsce package"
+  },
   "contributes": {
     "commands": [
       {

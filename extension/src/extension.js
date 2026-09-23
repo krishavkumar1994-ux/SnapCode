@@ -2,7 +2,7 @@ const vscode = require('vscode');
 
 const viewId = 'snapcode.sidebar';
 const containerCommand = 'workbench.view.extension.snapcode';
-const backendUrl = 'http://localhost:3000/api/extract';
+const backendUrl = 'https://snapcode-5z40.onrender.com/api/extract';
 
 class SnapCodeViewProvider {
   constructor(context) {
