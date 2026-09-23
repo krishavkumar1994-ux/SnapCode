@@ -39,7 +39,7 @@ export async function extractCodeFromImage(imageBuffer, mimeType) {
     response = await groq.chat.completions.create({
       model: MODEL,
       temperature: 0,
-      max_tokens: 2048,
+      max_completion_tokens: 1000,
       reasoning_effort: 'none',
       reasoning_format: 'hidden',
       messages: [{
