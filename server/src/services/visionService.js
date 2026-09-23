@@ -1,6 +1,6 @@
 import Groq from 'groq-sdk';
 
-const MODEL = 'qwen/qwen3.6-27b';
+const MODEL = 'qwen/qwen3.8-27b';
 
 const extractionPrompt = `You are a source-code extraction system.
 
@@ -51,13 +51,6 @@ export async function extractCodeFromImage(imageBuffer, mimeType) {
       }]
     });
   } catch (error) {
-    console.error('Groq request failed:', JSON.stringify({
-      model: MODEL,
-      status: error.status ?? error.response?.status ?? 'unknown',
-      type: error.error?.type ?? error.type ?? error.constructor?.name ?? 'unknown',
-      message: error.error?.message ?? error.message ?? 'Unknown Groq error'
-    }));
-
     if ([401, 403].includes(error.status)) {
       const configurationError = new Error('The Groq API key is invalid or does not have access to the vision service.');
       configurationError.code = 'GROQ_AUTH_ERROR';
