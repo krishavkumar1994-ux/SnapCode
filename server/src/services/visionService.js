@@ -64,6 +64,23 @@ export async function extractCodeFromImage(imageBuffer, mimeType) {
     }
 
     if (error.status === 429) {
+      const headers = error.headers ?? error.response?.headers;
+      const getHeader = (name) => headers?.get?.(name) ?? headers?.[name] ?? headers?.[name.toLowerCase()] ?? null;
+
+      console.warn('Groq rate limit metadata:', JSON.stringify({
+        status: error.status,
+        type: error.error?.type ?? error.type ?? 'unknown',
+        message: error.error?.message ?? error.message ?? 'Unknown Groq error',
+        retryAfter: getHeader('retry-after'),
+        limitRequests: getHeader('x-ratelimit-limit-requests'),
+        remainingRequests: getHeader('x-ratelimit-remaining-requests'),
+        resetRequests: getHeader('x-ratelimit-reset-requests'),
+        limitTokens: getHeader('x-ratelimit-limit-tokens'),
+        remainingTokens: getHeader('x-ratelimit-remaining-tokens'),
+        resetTokens: getHeader('x-ratelimit-reset-tokens'),
+        model: MODEL
+      }));
+
       const rateLimitError = new Error('Groq rate limit reached. Please try again shortly.');
       rateLimitError.code = 'GROQ_RATE_LIMIT_ERROR';
       throw rateLimitError;
